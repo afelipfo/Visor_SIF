@@ -114,12 +114,12 @@ export function Hero() {
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              VisorSIF
+              SIF360
             </span>
           </h1>
 
           <p className="text-xl md:text-2xl text-foreground/95 mb-8 text-pretty font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-            Centro de información centralizado de la Secretaría de Infraestructura Física
+            Centro de Informacion de la Secretaria de Infraestructura Fisica
           </p>
         </motion.div>
       </div>

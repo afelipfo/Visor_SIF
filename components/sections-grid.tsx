@@ -1,428 +1,214 @@
 "use client"
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ExternalLink, ChevronDown, ChevronUp, Database } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-
-type Section = {
-  id: string
-  title: string
-  description: string
-  color: string
-  content: ContentBlock[]
-  subsections?: Subsection[]
-  comingSoon?: boolean
-}
-
-type Subsection = {
-  title: string
-  items: ContentBlock[]
-}
-
-type ContentBlock = {
-  title: string
-  description: string
-  url: string
-  image?: string
-}
-
-const sections: Section[] = [
-  {
-    id: "geographic",
-    title: "Analítica Geográfica",
-    description: "Visualización y análisis de datos geoespaciales",
-    color: "primary",
-    content: [
-      {
-        title: "Segmentos Viales",
-        description: "Dashboard interactivo de segmentos viales de Medellín",
-        url: "https://m-medellin.maps.arcgis.com/apps/dashboards/5e9aefa0e1694c7d8b81f995a2c8250c",
-        image: "/dashboard-map-interface.jpg",
-      },
-      {
-        title: "Baches",
-        description: "Monitoreo y gestión de baches en la ciudad",
-        url: "https://www.arcgis.com/apps/dashboards/c150ccbfcaf5460cba33c727525ccbe2",
-        image: "/road-network-infrastructure-dashboard.jpg",
-      },
-      {
-        title: "Avances y proyección de la gestión de urgencias en Medellín",
-        description: "Story map sobre la gestión de urgencias",
-        url: "https://storymaps.arcgis.com/stories/f91fffe9dda3449994e93f2fb77c02af",
-        image: "/emergency-response-coordination-dashboard.jpg",
-      },
-      {
-        title: "Tacita de Plata: Mobiliario que transforma Medellín",
-        description: "Story map sobre el mobiliario urbano de Medellín",
-        url: "https://storymaps.arcgis.com/stories/d45bbe427f9a4e469c7f8001f0bf89cd",
-        image: "/general-dashboard-interface.png",
-      },
-    ],
-  },
-  {
-    id: "data",
-    title: "Analítica de Datos",
-    description: "Análisis avanzado de datos y métricas",
-    color: "secondary",
-    content: [],
-    subsections: [
-      {
-        title: "Unidad de Gestión de la Información y Proyectos",
-        items: [
-          {
-            title: "Ejecución Presupuestal",
-            description: "Dashboard de seguimiento a la ejecución presupuestal",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiNDAyOGE4OTMtZTExMi00M2VlLWJiNmUtMTMwMzk3MjY0YmU3IiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/budget-execution-dashboard-charts-graphs.jpg",
-          },
-          {
-            title: "Informes Indicadores PI",
-            description: "Indicadores de gestión y desempeño del Plan Indicativo",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiMjliYjNkNGQtYjJiMC00MDRhLWJlZDMtYjk4YmI1YjMwZjUzIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/performance-indicators-dashboard-metrics.jpg",
-          },
-        ],
-      },
-      {
-        title: "Unidad de Estudios y Diseños",
-        items: [
-          {
-            title: "Parques - Tejiendo Hogares",
-            description: "Dashboard de seguimiento al programa de parques",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiN2Y1ZTQyNGQtOTkzZC00MjY4LTg5NzktZWY1NzNiYjE2NzBkIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/parks-green-spaces-urban-development-dashboard.jpg",
-          },
-        ],
-      },
-      {
-        title: "Unidad de Gestión Contractual",
-        items: [
-          {
-            title: "Proceso Precontractual",
-            description: "Seguimiento a procesos de contratación en etapa precontractual",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiMzE1MWNmMjQtYWEyMy00MGVjLWI4MjgtNzIzZTYxZDAzNDVhIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/contract-procurement-process-dashboard.jpg",
-          },
-          {
-            title: "Seguimiento Contractual",
-            description: "Monitoreo y control de contratos en ejecución",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiZjIxMGEzMGYtNjIwZi00OTY5LWExYWItNjUxMjk2NDEwOTUzIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/contract-monitoring-tracking-dashboard.jpg",
-          },
-        ],
-      },
-      {
-        title: "Unidad de Apoyo Jurídico",
-        items: [
-          {
-            title: "Acciones Populares",
-            description: "Seguimiento a acciones populares y procesos jurídicos",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiZWY3ZDM3ODctMGFmYS00OTlmLWJlYTgtMmViNTE5NmZmYjA5IiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/legal-actions-lawsuits-dashboard.jpg",
-          },
-        ],
-      },
-      {
-        title: "Unidad de Dirección Técnica",
-        items: [
-          {
-            title: "Estado Proyectos Estratégicos",
-            description: "Seguimiento al estado de proyectos estratégicos de la secretaría",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiYzEzZGI3ZTUtNDc1ZS00ODdjLTg1YTctYTA1OGZjYzdmMTVlIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/strategic-projects-status-dashboard.jpg",
-          },
-        ],
-      },
-      {
-        title: "Unidad de Ejecución de Proyectos",
-        items: [
-          {
-            title: "Seguimiento a Contratos de Obra",
-            description: "Monitoreo de contratos de obra en ejecución",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiOTJiOGNkZTUtY2E5ZS00NDRkLWIyZmEtYzBjZjA5MGQ1NjA0IiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/construction-contracts-monitoring-dashboard.jpg",
-          },
-          {
-            title: "Empleabilidad",
-            description: "Dashboard de seguimiento a programas de empleabilidad",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiNjUyOWI4ZmQtZWIzNi00NjM2LTlkOGUtOGM0OTUwNjY1MmNmIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/employment-jobs-workforce-dashboard.jpg",
-          },
-          {
-            title: "Informe Malla Vial",
-            description: "Reporte del estado de la malla vial de la ciudad",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiNWI3ZTNkZmMtMjEyNy00NjU1LTk3YzktNTMyOGJkMzZlN2ZiIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/road-network-infrastructure-dashboard.jpg",
-          },
-          {
-            title: "Informe Paraderos",
-            description: "Dashboard de seguimiento a paraderos de transporte público",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiZDQ2OGM4MDItYTc1Zi00MjE5LWJlNmUtZjJhMDE3ZjkzMWFjIiwidCI6ImJhMzM0NGUyLTAxMGYtNGJkZi1iNTEyLWMzOGRmYTdhNWJhNSIsImMiOjR9",
-            image: "/bus-stops-public-transport-dashboard.jpg",
-          },
-        ],
-      },
-      {
-        title: "Unidad Administrativa",
-        items: [
-          {
-            title: "PQRS",
-            description: "Seguimiento a Peticiones, Quejas, Reclamos y Sugerencias",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiMTIxNTFlNTQtYzg5OS00M2Y0LTgyOTUtYmZkZDU2NDU4ZTAwIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/customer-service-complaints-requests-dashboard.jpg",
-          },
-        ],
-      },
-      {
-        title: "Unidad Socioambiental y Paisajismo",
-        items: [
-          {
-            title: "Zonas Verdes",
-            description: "Dashboard de gestión y seguimiento de zonas verdes",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiODc0MjQyNmMtZjY5Zi00YWQ2LWExM2UtZDkwYWMxM2ZkNTkzIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/green-areas-parks-landscaping-dashboard.jpg",
-          },
-        ],
-      },
-      {
-        title: "Unidad de Mantenimiento",
-        items: [
-          {
-            title: "Trabajadores Oficiales",
-            description: "Dashboard de gestión de trabajadores oficiales",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiNWM1NzY3MjQtZmViMy00YmRiLWJiODgtMDg0MDRhZjVkMTgzIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/workers-employees-workforce-management-dashboard.jpg",
-          },
-          {
-            title: "Parque Automotor",
-            description: "Seguimiento y gestión del parque automotor",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiNmQ1ZThhNWItZTA1Mi00ZDc4LTgwMTktYWEyYzViOTY1YTNhIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/vehicle-fleet-management-dashboard.jpg",
-          },
-          {
-            title: "Intervenciones Directas",
-            description: "Dashboard de seguimiento a intervenciones directas",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiYjE2NjE2MjItNTUxNi00ZTI4LThmNzAtNjY0NThjNGYxN2Q2IiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/direct-interventions-maintenance-dashboard.jpg",
-          },
-        ],
-      },
-      {
-        title: "Despacho SIF",
-        items: [
-          {
-            title: "Gerencia de Corregimientos",
-            description: "Dashboard de gestión de corregimientos",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiZmVhNjY3YTYtNTIwNi00NzUzLTkyYWYtZmZiMDBiNTdkNWQwIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/rural-districts-management-dashboard.jpg",
-          },
-          {
-            title: "Informe Calamidad Pública",
-            description: "Reporte de atención a situaciones de calamidad pública",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiMjEyMzdhNGEtZGVjNC00YTM4LWEzNDAtMjI1MmY1NzdlODEwIiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/public-emergency-disaster-response-dashboard.jpg",
-          },
-          {
-            title: "Plan de Contratación",
-            description: "Dashboard del plan anual de contratación",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiMjgzYmIxZTctMmM1Yi00YWEzLWIyYTktYjk3ODYxNGI3NTY4IiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/annual-procurement-plan-dashboard.jpg",
-          },
-          {
-            title: "Atenciones DAGRD-SIF Emergencias",
-            description: "Dashboard de atención a emergencias coordinadas con DAGRD",
-            url: "https://app.powerbi.com/view?r=eyJrIjoiNjEyM2VkYWItNjk1Ny00NDY0LTg3ZjktYzE4N2Y2MjAzMTE3IiwidCI6IjljNDhlMDg4LTVlNDQtNGIwZC05M2EwLWVlYjJjNjEyN2MzZCIsImMiOjR9",
-            image: "/emergency-response-coordination-dashboard.jpg",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "ai",
-    title: "Inteligencia Artificial",
-    description: "Herramientas de IA para análisis inteligente",
-    color: "accent",
-    content: [
-      {
-        title: "SIF GPT",
-        description: "Asistente de IA para consultas sobre el Sistema de Información",
-        url: "https://sifgpt.vercel.app/",
-        image: "/ai-chatbot-assistant-interface.jpg",
-      },
-    ],
-  },
-]
+import { useMemo, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { ChevronDown, Database, ExternalLink } from "lucide-react"
+import { sections } from "@/lib/dashboards"
+import type { ContentBlock, Section as SectionType, Subsection } from "@/lib/dashboards"
 
 export function SectionsGrid() {
-  const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  const [expandedSectionId, setExpandedSectionId] = useState<string | null>(sections[0]?.id ?? null)
 
-  const toggleSection = (sectionId: string) => {
-    setExpandedSection(expandedSection === sectionId ? null : sectionId)
+  const selectedSection = useMemo(
+    () => sections.find((section) => section.id === expandedSectionId) ?? null,
+    [expandedSectionId],
+  )
+
+  const handleToggle = (sectionId: string) => {
+    setExpandedSectionId((prev) => (prev === sectionId ? null : sectionId))
   }
 
   return (
-    <section className="py-20 px-4 container mx-auto">
+    <section className="container mx-auto px-4 py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-12"
+        className="mb-12 text-center"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-balance">Secciones</h2>
-        <p className="text-lg md:text-xl text-muted-foreground text-pretty max-w-2xl mx-auto">
-          Accede a herramientas y recursos especializados en cada área
+        <h2 className="text-balance text-4xl font-bold md:text-5xl">Secciones</h2>
+        <p className="text-pretty mx-auto mt-3 max-w-2xl text-lg text-muted-foreground md:text-xl">
+          Explora las soluciones analíticas disponibles por área y accede a cada tablero con una distribución más clara.
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-        {sections.map((section, index) => (
-          <motion.div
-            key={section.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <Card
-              className={`group cursor-pointer transition-all duration-300 hover:shadow-xl ${
-                expandedSection === section.id ? "ring-2 ring-" + section.color : ""
-              }`}
-              onClick={() => toggleSection(section.id)}
-            >
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span>{section.title}</span>
-                  {expandedSection === section.id ? (
-                    <ChevronUp className="w-5 h-5 text-muted-foreground" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-muted-foreground" />
-                  )}
-                </CardTitle>
-                <CardDescription className="text-base">{section.description}</CardDescription>
-              </CardHeader>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {sections.map((section, index) => {
+          const isActive = section.id === expandedSectionId
+          const sectionLabel = section.id.replace(/-/g, " ")
 
-              <AnimatePresence>
-                {expandedSection === section.id && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <CardContent>
-                      {section.comingSoon ? (
-                        <div className="py-8 text-center">
-                          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
-                            <Database className="w-8 h-8 text-muted-foreground" />
-                          </div>
-                          <p className="text-lg font-semibold mb-2">Próximamente</p>
-                          <p className="text-sm text-muted-foreground">Esta sección estará disponible pronto</p>
-                        </div>
-                      ) : section.subsections ? (
-                        <div className="space-y-6 max-h-[600px] overflow-y-auto pr-2">
-                          {section.subsections.map((subsection, subIdx) => (
-                            <div key={subIdx} className="space-y-3">
-                              <h4 className="font-semibold text-sm text-primary border-b pb-2">{subsection.title}</h4>
-                              <div className="space-y-3 pl-2">
-                                {subsection.items.map((item, itemIdx) => (
-                                  <motion.div
-                                    key={itemIdx}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: (subIdx * subsection.items.length + itemIdx) * 0.05 }}
-                                    className="group/item"
-                                  >
-                                    <a
-                                      href={item.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="block p-3 rounded-lg border bg-card hover:bg-accent/5 transition-colors"
-                                      onClick={(e) => e.stopPropagation()}
-                                    >
-                                      {item.image && (
-                                        <div className="relative w-full h-32 mb-2 rounded-md overflow-hidden bg-muted">
-                                          <img
-                                            src={item.image || "/placeholder.svg"}
-                                            alt={item.title}
-                                            className="w-full h-full object-cover transition-transform duration-300 group-hover/item:scale-105"
-                                            onError={(e) => {
-                                              const target = e.target as HTMLImageElement
-                                              target.src = "/placeholder.svg?height=200&width=400"
-                                            }}
-                                          />
-                                        </div>
-                                      )}
-                                      <div className="flex items-start justify-between gap-2">
-                                        <div className="flex-1">
-                                          <h5 className="font-semibold text-sm mb-1 group-hover/item:text-primary transition-colors">
-                                            {item.title}
-                                          </h5>
-                                          <p className="text-xs text-muted-foreground">{item.description}</p>
-                                        </div>
-                                        <ExternalLink className="w-4 h-4 text-muted-foreground group-hover/item:text-primary transition-colors flex-shrink-0 mt-1" />
-                                      </div>
-                                    </a>
-                                  </motion.div>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          {section.content.map((item, idx) => (
-                            <motion.div
-                              key={idx}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
-                              className="group/item"
-                            >
-                              <a
-                                href={item.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block p-4 rounded-lg border bg-card hover:bg-accent/5 transition-colors"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                {item.image && (
-                                  <div className="relative w-full h-40 mb-3 rounded-md overflow-hidden bg-muted">
-                                    <img
-                                      src={item.image || "/placeholder.svg"}
-                                      alt={item.title}
-                                      className="w-full h-full object-cover transition-transform duration-300 group-hover/item:scale-105"
-                                      onError={(e) => {
-                                        const target = e.target as HTMLImageElement
-                                        target.src = "/placeholder.svg?height=200&width=400"
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex items-start justify-between gap-2">
-                                  <div className="flex-1">
-                                    <h4 className="font-semibold mb-1 group-hover/item:text-primary transition-colors">
-                                      {item.title}
-                                    </h4>
-                                    <p className="text-sm text-muted-foreground">{item.description}</p>
-                                  </div>
-                                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover/item:text-primary transition-colors flex-shrink-0 mt-1" />
-                                </div>
-                              </a>
-                            </motion.div>
-                          ))}
-                        </div>
-                      )}
-                    </CardContent>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Card>
-          </motion.div>
-        ))}
+          return (
+            <motion.button
+              key={section.id}
+              type="button"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              whileHover={{ y: -4 }}
+              onClick={() => handleToggle(section.id)}
+              aria-pressed={isActive}
+              className={`group flex h-full flex-col rounded-2xl border bg-card p-6 text-left shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                isActive ? "ring-2 ring-primary" : "hover:border-primary/60 hover:shadow-lg"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    {sectionLabel}
+                  </p>
+                  <h3 className="mt-2 text-lg font-semibold leading-tight text-foreground md:text-xl">
+                    {section.title}
+                  </h3>
+                </div>
+                <motion.span
+                  animate={{ rotate: isActive ? 180 : 0 }}
+                  className="rounded-full bg-muted p-2 text-muted-foreground transition group-hover:text-primary"
+                >
+                  <ChevronDown className="h-4 w-4" />
+                </motion.span>
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground">{section.description}</p>
+            </motion.button>
+          )
+        })}
       </div>
+
+      <AnimatePresence mode="wait">
+        {selectedSection && (
+          <motion.div
+            key={selectedSection.id}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.35 }}
+            className="mt-12"
+          >
+            <SectionDetails section={selectedSection} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
+  )
+}
+
+function SectionDetails({ section }: { section: SectionType }) {
+  if (section.comingSoon) {
+    return (
+      <div className="flex flex-col items-center justify-center rounded-3xl border bg-card/80 px-8 py-16 text-center shadow-lg backdrop-blur">
+        <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+          <Database className="h-10 w-10 text-muted-foreground" />
+        </div>
+        <h3 className="text-2xl font-semibold text-foreground">Próximamente</h3>
+        <p className="mt-3 max-w-md text-sm text-muted-foreground">
+          Estamos preparando nuevos tableros para esta sección. Vuelve pronto para descubrir las novedades.
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="rounded-3xl border bg-background/95 shadow-xl backdrop-blur">
+      <div className="border-b px-6 py-6 md:px-10 md:py-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+              Área seleccionada
+            </span>
+            <h3 className="mt-3 text-3xl font-bold text-foreground md:text-4xl">{section.title}</h3>
+            <p className="mt-3 max-w-3xl text-sm text-muted-foreground md:text-base">{section.description}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="px-6 py-6 md:px-10 md:py-10">
+        {section.subsections && section.subsections.length > 0 ? (
+          <SubsectionsGrid subsections={section.subsections} />
+        ) : (
+          <DashboardGrid items={section.content} />
+        )}
+      </div>
+    </div>
+  )
+}
+
+function SubsectionsGrid({ subsections }: { subsections: Subsection[] }) {
+  return (
+    <div className="grid gap-8">
+      {subsections.map((subsection, index) => (
+        <div
+          key={`${subsection.title}-${index}`}
+          className="rounded-2xl border border-dashed border-primary/20 bg-muted/30 p-6 shadow-sm md:p-8"
+        >
+          <div className="flex flex-col gap-3 pb-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <span className="inline-flex items-center rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+                Unidad {index + 1}
+              </span>
+              <h4 className="mt-2 text-2xl font-semibold text-foreground">{subsection.title}</h4>
+            </div>
+          </div>
+
+          <DashboardGrid items={subsection.items} dense />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function DashboardGrid({ items, dense = false }: { items: ContentBlock[]; dense?: boolean }) {
+  if (!items.length) {
+    return (
+      <div className="flex items-center justify-center rounded-2xl border bg-card px-6 py-16 text-center text-sm text-muted-foreground">
+        No hay tableros disponibles en este momento.
+      </div>
+    )
+  }
+
+  const gridClasses = dense
+    ? "grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+    : "grid gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+
+  return (
+    <div className={gridClasses}>
+      {items.map((item, index) => (
+        <DashboardCard key={`${item.title}-${index}`} item={item} />
+      ))}
+    </div>
+  )
+}
+
+function DashboardCard({ item }: { item: ContentBlock }) {
+  return (
+    <motion.a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition hover:border-primary hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      whileHover={{ y: -6 }}
+    >
+      {item.image && (
+        <div className="relative h-40 w-full overflow-hidden bg-muted">
+          <img
+            src={item.image || "/placeholder.svg"}
+            alt={item.title}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            onError={(event) => {
+              const target = event.target as HTMLImageElement
+              target.src = "/placeholder.svg?height=200&width=400"
+            }}
+          />
+        </div>
+      )}
+      <div className="flex flex-1 flex-col gap-2 px-5 py-5">
+        <h5 className="text-base font-semibold text-foreground md:text-lg">{item.title}</h5>
+        <p className="line-clamp-3 text-sm text-muted-foreground">{item.description}</p>
+        <span className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-primary">
+          Abrir tablero
+          <ExternalLink className="h-4 w-4" />
+        </span>
+      </div>
+    </motion.a>
   )
 }
