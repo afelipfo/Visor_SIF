@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     if (!apiKey) {
       console.log("[v0] API: No API key found")
       return NextResponse.json({
-        message: "Por favor configura tu API key de OpenAI en las variables de entorno.",
+        message: "Por favor configura tu API key de OpenAI en el archivo .env. Necesitas crear una variable OPENAI_API_KEY con tu clave de OpenAI.",
       })
     }
 
@@ -109,7 +109,7 @@ INSTRUCCIONES:
       const errorData = await response.json()
       console.error("[v0] API: OpenAI error:", errorData)
       return NextResponse.json({
-        message: "Lo siento, hubo un problema al conectar con OpenAI. Por favor verifica tu API key.",
+        message: "Lo siento, hubo un problema al conectar con OpenAI. Por favor verifica que tu API key esté configurada correctamente en el archivo .env.",
       })
     }
 
