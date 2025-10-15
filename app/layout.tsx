@@ -7,8 +7,8 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "VisorSIF - Centralized Information Hub",
-  description: "Geographic Analytics, Data Analytics, and Artificial Intelligence",
+  title: "VisorSIF - Centro de Información Centralizado",
+  description: "Analítica Geográfica, Analítica de Datos e Inteligencia Artificial",
   generator: "v0.app",
 }
 

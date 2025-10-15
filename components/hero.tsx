@@ -94,6 +94,24 @@ export function Hero() {
           transition={{ duration: 0.8 }}
           className="text-center max-w-4xl mx-auto"
         >
+          {/* Logo de Alcaldía de Medellín */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8 flex justify-center"
+          >
+            <div className="relative w-32 h-32 md:w-40 md:h-40 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-2xl">
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Escudo_de_Medell%C3%ADn_%28versi%C3%B3n_Alcald%C3%ADa%29.svg/800px-Escudo_de_Medell%C3%ADn_%28versi%C3%B3n_Alcald%C3%ADa%29.svg.png"
+                alt="Alcaldía de Medellín"
+                fill
+                className="object-contain p-2"
+                priority
+              />
+            </div>
+          </motion.div>
+
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               VisorSIF
