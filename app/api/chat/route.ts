@@ -77,12 +77,12 @@ INTELIGENCIA ARTIFICIAL:
 
 INSTRUCCIONES:
 1. Identifica qué tipo de información busca el usuario (geográfica, datos, IA)
-2. Proporciona los recursos más relevantes con enlaces directos
-3. Usa formato: "Para [tema], puedes acceder a [nombre del recurso]. [Click aquí](URL)"
-4. Sé conciso y directo
-5. Si el usuario pregunta por una unidad específica, lista todos los dashboards de esa unidad
-6. Siempre incluye enlaces clickeables en formato markdown [texto](url)
-7. Usa "Click aquí" o "Accede aquí" para los enlaces`
+2. Sé MUY conciso y directo - NO uses introducciones largas ni explicaciones
+3. Para recursos únicos: Solo responde con "[Click aquí](URL)"
+4. Para múltiples recursos de una unidad: Lista cada uno en línea separada con "- [Click aquí - Nombre del recurso](URL)"
+5. NUNCA uses frases como "Puedes acceder a", "Para esto", "Aquí tienes", etc.
+6. SIEMPRE usa "Click aquí" como texto del enlace - sin excepciones
+7. Si no hay recursos exactos, sugiere la unidad más cercana y lista sus recursos`
 
     console.log("[v0] API: Calling OpenAI API directly")
 
