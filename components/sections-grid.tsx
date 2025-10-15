@@ -38,29 +38,25 @@ const sections: Section[] = [
         title: "Segmentos Viales",
         description: "Dashboard interactivo de segmentos viales de Medellín",
         url: "https://m-medellin.maps.arcgis.com/apps/dashboards/5e9aefa0e1694c7d8b81f995a2c8250c",
-        image:
-          "https://www.arcgis.com/sharing/rest/content/items/5e9aefa0e1694c7d8b81f995a2c8250c/info/thumbnail/thumbnail.png",
+        image: "/dashboard-map-interface.jpg",
       },
       {
         title: "Baches",
         description: "Monitoreo y gestión de baches en la ciudad",
         url: "https://www.arcgis.com/apps/dashboards/c150ccbfcaf5460cba33c727525ccbe2",
-        image:
-          "https://www.arcgis.com/sharing/rest/content/items/c150ccbfcaf5460cba33c727525ccbe2/info/thumbnail/thumbnail.png",
+        image: "/road-network-infrastructure-dashboard.jpg",
       },
       {
         title: "Avances y proyección de la gestión de urgencias en Medellín",
         description: "Story map sobre la gestión de urgencias",
         url: "https://storymaps.arcgis.com/stories/f91fffe9dda3449994e93f2fb77c02af",
-        image:
-          "https://www.arcgis.com/sharing/rest/content/items/f91fffe9dda3449994e93f2fb77c02af/info/thumbnail/thumbnail.png",
+        image: "/emergency-response-coordination-dashboard.jpg",
       },
       {
         title: "Tacita de Plata: Mobiliario que transforma Medellín",
         description: "Story map sobre el mobiliario urbano de Medellín",
         url: "https://storymaps.arcgis.com/stories/d45bbe427f9a4e469c7f8001f0bf89cd",
-        image:
-          "https://www.arcgis.com/sharing/rest/content/items/d45bbe427f9a4e469c7f8001f0bf89cd/info/thumbnail/thumbnail.png",
+        image: "/general-dashboard-interface.png",
       },
     ],
   },

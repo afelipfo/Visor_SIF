@@ -103,7 +103,7 @@ export function Hero() {
           >
             <div className="relative w-32 h-32 md:w-40 md:h-40 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-2xl">
               <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Escudo_de_Medell%C3%ADn_%28versi%C3%B3n_Alcald%C3%ADa%29.svg/800px-Escudo_de_Medell%C3%ADn_%28versi%C3%B3n_Alcald%C3%ADa%29.svg.png"
+                src="/alcaldia-medellin-logo.png"
                 alt="Alcaldía de Medellín"
                 fill
                 className="object-contain p-2"

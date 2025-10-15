@@ -10,6 +10,12 @@ export const metadata: Metadata = {
   title: "VisorSIF - Centro de Información Centralizado",
   description: "Analítica Geográfica, Analítica de Datos e Inteligencia Artificial",
   generator: "v0.app",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 }
 
 export default function RootLayout({
