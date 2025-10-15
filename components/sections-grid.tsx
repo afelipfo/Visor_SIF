@@ -7,7 +7,7 @@ import { sections } from "@/lib/dashboards"
 import type { ContentBlock, Section as SectionType, Subsection } from "@/lib/dashboards"
 
 export function SectionsGrid() {
-  const [expandedSectionId, setExpandedSectionId] = useState<string | null>(sections[0]?.id ?? null)
+  const [expandedSectionId, setExpandedSectionId] = useState<string | null>(null)
 
   const selectedSection = useMemo(
     () => sections.find((section) => section.id === expandedSectionId) ?? null,
