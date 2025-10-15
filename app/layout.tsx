@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description: "Centro de Información Centralizado de la Secretaría de Infraestructura Física",
     images: [
       {
-        url: "/FOTOS EXPO19.JPG",
+        url: "https://visor-sif.vercel.app/fotos-expo19.jpg",
         width: 1200,
         height: 630,
         alt: "VisorSIF - Centro de Información Centralizado",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "VisorSIF",
     description: "Centro de Información Centralizado de la Secretaría de Infraestructura Física",
-    images: ["/FOTOS EXPO19.JPG"],
+    images: ["https://visor-sif.vercel.app/fotos-expo19.jpg"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -48,14 +48,17 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
         <meta property="og:title" content="VisorSIF" />
         <meta property="og:description" content="Centro de Información Centralizado de la Secretaría de Infraestructura Física" />
-        <meta property="og:image" content="/FOTOS EXPO19.JPG" />
+        <meta property="og:image" content="https://visor-sif.vercel.app/fotos-expo19.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="VisorSIF - Centro de Información Centralizado" />
         <meta property="og:url" content="https://visor-sif.vercel.app" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="VisorSIF" />
         <meta name="twitter:description" content="Centro de Información Centralizado de la Secretaría de Infraestructura Física" />
-        <meta name="twitter:image" content="/FOTOS EXPO19.JPG" />
+        <meta name="twitter:image" content="https://visor-sif.vercel.app/fotos-expo19.jpg" />
 
         {/* General */}
         <meta name="description" content="Centro de Información Centralizado de la Secretaría de Infraestructura Física" />
