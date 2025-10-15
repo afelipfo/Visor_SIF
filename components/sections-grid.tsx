@@ -29,7 +29,7 @@ export function SectionsGrid() {
       >
         <h2 className="text-balance text-4xl font-bold md:text-5xl">Secciones</h2>
         <p className="text-pretty mx-auto mt-3 max-w-2xl text-lg text-muted-foreground md:text-xl">
-          Explora las soluciones analíticas disponibles por área y accede a cada tablero con una distribución más clara.
+          Explora las soluciones analíticas disponibles por área.
         </p>
       </motion.div>
 
