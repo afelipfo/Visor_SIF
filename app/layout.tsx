@@ -7,10 +7,28 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "VisorSIF - Centro de Información Centralizado",
-  description: "Analítica Geográfica, Analítica de Datos e Inteligencia Artificial",
+  title: "VisorSIF",
+  description: "Centro de Información Centralizado de la Secretaría de Infraestructura Física",
   generator: "v0.app",
   manifest: "/manifest.json",
+  openGraph: {
+    title: "VisorSIF",
+    description: "Centro de Información Centralizado de la Secretaría de Infraestructura Física",
+    images: [
+      {
+        url: "/FOTOS EXPO19.JPG",
+        width: 1200,
+        height: 630,
+        alt: "VisorSIF - Centro de Información Centralizado",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "VisorSIF",
+    description: "Centro de Información Centralizado de la Secretaría de Infraestructura Física",
+    images: ["/FOTOS EXPO19.JPG"],
+  },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
