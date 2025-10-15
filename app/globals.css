@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Professional blue and white theme for SIF360 */
+  /* Paleta profesional azul y blanca para SIF 360 */
   --background: oklch(0.99 0.005 240);
   --foreground: oklch(0.15 0.02 240);
   --card: oklch(1 0 0);

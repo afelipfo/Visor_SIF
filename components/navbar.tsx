@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Link from "next/link"
 import { Search, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { getAllDashboards, sections } from "@/lib/dashboards"
@@ -89,20 +88,16 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/85 backdrop-blur">
-      <div className="container mx-auto flex flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:gap-6">
-        <Link href="/" className="text-2xl font-bold tracking-tight text-primary">
-          SIF360
-        </Link>
-
-        <div className="relative w-full md:max-w-2xl">
+      <div className="container mx-auto px-4 py-4">
+        <div className="relative mx-auto w-full md:max-w-2xl">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Busca dashboards por nombre, unidad, palabra clave o área"
+            placeholder="Busca tableros por nombre, unidad, palabra clave o área"
             className="pl-9 pr-10"
             type="search"
-            aria-label="Buscar dashboards"
+            aria-label="Buscar tableros"
           />
           {query && (
             <button
@@ -147,7 +142,7 @@ export function Navbar() {
                   ))}
                 </div>
               ) : (
-                <div className="px-4 py-6 text-sm text-muted-foreground">No se encontraron dashboards.</div>
+                <div className="px-4 py-6 text-sm text-muted-foreground">No se encontraron tableros.</div>
               )}
             </div>
           )}

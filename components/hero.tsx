@@ -45,7 +45,7 @@ export function Hero() {
                   >
                     <Image
                       src={image || "/placeholder.svg"}
-                      alt="Medellín cityscape"
+                      alt="Panorama de Medellín"
                       fill
                       className="object-cover"
                       priority={index === 0}
@@ -114,12 +114,12 @@ export function Hero() {
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
             <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              SIF360
+              SIF 360
             </span>
           </h1>
 
           <p className="text-xl md:text-2xl text-foreground/95 mb-8 text-pretty font-semibold drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-            Centro de Informacion de la Secretaria de Infraestructura Fisica
+            Centro de Información de la Secretaría de Infraestructura Física
           </p>
         </motion.div>
       </div>

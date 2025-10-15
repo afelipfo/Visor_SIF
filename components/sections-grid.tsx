@@ -141,14 +141,7 @@ function SubsectionsGrid({ subsections }: { subsections: Subsection[] }) {
           key={`${subsection.title}-${index}`}
           className="rounded-2xl border border-dashed border-primary/20 bg-muted/30 p-6 shadow-sm md:p-8"
         >
-          <div className="flex flex-col gap-3 pb-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <span className="inline-flex items-center rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
-                Unidad {index + 1}
-              </span>
-              <h4 className="mt-2 text-2xl font-semibold text-foreground">{subsection.title}</h4>
-            </div>
-          </div>
+          <h4 className="pb-6 text-2xl font-semibold text-foreground">{subsection.title}</h4>
 
           <DashboardGrid items={subsection.items} dense />
         </div>
