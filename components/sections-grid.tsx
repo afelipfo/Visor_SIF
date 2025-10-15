@@ -36,7 +36,6 @@ export function SectionsGrid() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {sections.map((section, index) => {
           const isActive = section.id === expandedSectionId
-          const sectionLabel = section.id.replace(/-/g, " ")
 
           return (
             <motion.button
@@ -55,12 +54,7 @@ export function SectionsGrid() {
             >
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    {sectionLabel}
-                  </p>
-                  <h3 className="mt-2 text-lg font-semibold leading-tight text-foreground md:text-xl">
-                    {section.title}
-                  </h3>
+                  <h3 className="text-lg font-semibold leading-tight text-foreground md:text-xl">{section.title}</h3>
                 </div>
                 <motion.span
                   animate={{ rotate: isActive ? 180 : 0 }}
