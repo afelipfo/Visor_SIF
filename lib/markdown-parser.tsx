@@ -73,7 +73,7 @@ function parseInlineMarkdown(text: string): React.ReactNode[] {
   let key = 0
   let currentIndex = 0
 
-  const regex = /(\*\*(.+?)\*\*|\[(.+?)\]$$(.+?)$$)/g
+  const regex = /(\*\*(.+?)\*\*|\[(.+?)\]\((.+?)\))/g
   let match
 
   while ((match = regex.exec(text)) !== null) {
