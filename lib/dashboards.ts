@@ -292,6 +292,13 @@ export const sections: Section[] = [
         image: "/images/comunicaciones.jpg",
         keywords: ["informe", "gestión", "comunicaciones", "reporte", "interactivo"],
       },
+      {
+        title: "Informes Automatizados Urgencia Manifiesta - Survey123",
+        description: "Sistema automatizado de informes para gestión de urgencias manifiestas mediante Survey123",
+        url: "https://informes-med.onrender.com/",
+        image: "/urgenciainf.jpeg",
+        keywords: ["urgencias", "informes automatizados", "survey123", "reportes", "emergencias"],
+      },
     ],
   },
 ]
