@@ -285,6 +285,13 @@ export const sections: Section[] = [
         image: "/images/sifgpt.jpg",
         keywords: ["ia", "asistente virtual", "chatbot", "preguntas"],
       },
+      {
+        title: "Informe de Gestión",
+        description: "Informe interactivo de gestión de la Secretaría de Infraestructura Física - Equipo de Comunicaciones",
+        url: "/comunicaciones.html",
+        image: "/images/comunicaciones.jpg",
+        keywords: ["informe", "gestión", "comunicaciones", "reporte", "interactivo"],
+      },
     ],
   },
 ]
